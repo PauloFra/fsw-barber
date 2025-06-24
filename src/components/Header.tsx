@@ -1,28 +1,16 @@
-import Link from "next/link";
+import React from "react"
+import Image from "next/image"
+import { Card, CardContent } from "@/components/ui/card"
 
-export default function Header() {
+function Header() {
   return (
-    <header className="bg-gray-800 text-white p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-xl font-bold">
-          FSW Barber
-        </Link>
-        <nav>
-          <ul className="flex space-x-4">
-            <li>
-              <Link href="/" className="hover:text-gray-300">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className="hover:text-gray-300">
-                About
-              </Link>
-            </li>
-            {/* Add more navigation items as needed */}
-          </ul>
-        </nav>
-      </div>
-    </header>
-  );
+    <Card>
+      <CardContent>
+        <Image src="/logo.png" alt="logo" width={100} height={100} />
+        <h1>Header</h1>
+      </CardContent>
+    </Card>
+  )
 }
+
+export default Header
