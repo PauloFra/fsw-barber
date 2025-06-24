@@ -29,8 +29,10 @@ export default function Home() {
             className="rounded-xl object-cover"
           />
         </div>
-
-        <Card className="mt-6 p-0">
+        <h2 className="mt-6 mb-6 text-lg font-bold text-gray-500">
+          Agendamentos
+        </h2>
+        <Card className="p-0">
           <CardContent className="flex items-center justify-between p-0">
             <div className="flex flex-col gap-1 pl-5">
               <Badge className="w-fit">Confirmado</Badge>
