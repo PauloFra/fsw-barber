@@ -1,4 +1,3 @@
-"use client"
 import Header from "@/components/header"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -7,8 +6,36 @@ import { SearchIcon } from "lucide-react"
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
+import { db } from "@/lib/prisma"
+import { GetServerSideProps, InferGetServerSidePropsType } from "next"
+import { BarbershopItem } from "@/components/barbershop-item"
 
-export default function Home() {
+export type Barbershop = {
+  id: string
+  name: string
+  address: string
+  phone: string[]
+  description: string
+  imageUrl: string
+  createdAt: Date
+  updatedAt: Date
+}
+
+export const getServerSideProps = (async () => {
+  const barbershops = await db.barbershop.findMany()
+
+  return {
+    props: {
+      barbershops: JSON.parse(JSON.stringify(barbershops)),
+    },
+  }
+}) satisfies GetServerSideProps<{ barbershops: Barbershop }>
+
+export default function Home({
+  barbershops,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  console.log(barbershops)
+
   return (
     <>
       <Header />
@@ -52,6 +79,13 @@ export default function Home() {
             </div>
           </CardContent>
         </Card>
+        {/* Lista de Barbearias */}
+        <h2 className="mt-6 mb-3 text-lg font-bold">Barbearias</h2>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {barbershops.map((barbershop: Barbershop) => (
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+          ))}
+        </div>
       </div>
     </>
   )
