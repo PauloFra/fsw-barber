@@ -34,8 +34,6 @@ export const getServerSideProps = (async () => {
 export default function Home({
   barbershops,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  console.log(barbershops)
-
   return (
     <>
       <Header />
@@ -81,7 +79,7 @@ export default function Home({
         </Card>
         {/* Lista de Barbearias */}
         <h2 className="mt-6 mb-3 text-lg font-bold">Barbearias</h2>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="scrollbar-hide flex gap-4 overflow-x-auto">
           {barbershops.map((barbershop: Barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
